@@ -30,7 +30,11 @@
 ;;; Code:
 
 (defconst restclient-packages
-  '(restclient)
+  '(restclient
+    (ob-restclient :location (recipe
+                             :fetcher github
+                             :repo "alf/ob-restclient.el"))
+)
   "The list of Lisp packages required by the restclient layer.
 
 Each entry is either:
@@ -60,5 +64,11 @@ Each entry is either:
 
 (defun restclient/init-restclient ()
   (use-package restclient))
+
+(defun restclient/init-ob-restclient ()
+  (use-package ob-restclient
+    :config (org-babel-do-load-languages
+             'org-babel-load-languages
+             '((restclient . t)))))
 
 ;;; packages.el ends here
